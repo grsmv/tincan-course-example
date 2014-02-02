@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" ng-app="tincanCource">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cardo">
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="lib/normalize-css/normalize.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body ng-controller="CourceController">
+
+    <div class="container text">
+
+        <div class="row heading">
+            <h1>Programming in Haskell</h1>
+
+            <div class="col-md-6 description">
+                Haskell is one of the leading languages for teaching functional programming, enabling students to write simpler and cleaner code, and to learn how to structure and reason about programs.
+            </div>
+
+            <div class="col-md-3 pull-right">
+                <br>
+                <a href="#/index">
+                    <h1 class="gamma"><i class="fa fa-bars"></i> Index</h1>
+                </a>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="col-md-9">
+                <div ng-view></div>
+            </div>
+        </div><!-- .content -->
+
+        <div class="footer">
+            &copy; 2014 SoftServe Inc. Lear Haskell for your great good!
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [["$", "$"], ["\\(", "\\)"]]
+            },
+            "HTML-CSS": { scale: 140 },
+            displayAlign: "left"
+        })
+    </script>
+</body>
+</html>

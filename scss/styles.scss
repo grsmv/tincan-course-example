@@ -1,0 +1,91 @@
+@import "typeplate";
+@import "vars-typeplate";
+
+// color scheme: http://www.colourlovers.com/palette/3229252/Chime_In_Ancient
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font-family: "Cardo", serif !important;
+
+    h1, h2 {
+        font-family: "Cardo", serif !important;
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 20px
+    }
+
+    .MathJax_Display {
+        margin-left: 100px;
+    }
+
+    .heading {
+        margin: 30px 0;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #b9bdc9;
+
+        h1 {
+            color: #b3410c;
+        }
+
+        .description {
+            color: #666;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    }
+
+    .menu {
+        i {
+            color: #e67a22;
+        }
+
+        a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    .content {
+        h1, h2 {
+            color: #3d4a75;
+        }
+    }
+
+    section {
+        border-bottom: 3px solid #b9bdc9;
+        margin: 30px 0 40px 0;
+
+        h2 {
+            padding-bottom: 30px;
+            margin-left: -36px;
+        }
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+    }
+
+    .footer {
+        border-top: 3px solid #b9bdc9;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        margin-top: 40px;
+    }
+
+    ul.index {
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
