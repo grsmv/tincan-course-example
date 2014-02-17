@@ -9,82 +9,79 @@ html {
 
 body {
     height: 100%;
-    font-family: "Cardo", serif !important;
+    font-family: "calluna";
 
-    h1, h2 {
-        font-family: "Cardo", serif !important;
-        font-weight: bold;
-    }
-
-    p {
-        font-size: 20px
-    }
-
-    .MathJax_Display {
-        margin-left: 100px;
-    }
-
-    .heading {
-        margin: 30px 0;
-        padding-bottom: 20px;
-        border-bottom: 3px solid #b9bdc9;
-
-        h1 {
-            color: #b3410c;
-        }
-
-        .description {
-            color: #666;
-            margin-top: 20px;
-        }
-
-        a:hover {
-            text-decoration: none;
+    &.sidr-open {
+        .menu-toggler {
+            left: 290px;
         }
     }
 
-    .menu {
-        i {
-            color: #e67a22;
-        }
-
-        a {
-            text-decoration: none;
-            cursor: pointer;
-        }
+    pre {
+        font-family: Monaco, monospace;
     }
 
     .content {
-        h1, h2 {
-            color: #3d4a75;
+        width: 70%;
+        margin: 0 auto;
+        padding-bottom: 50px;
+        padding-top: 30px;
+
+        section {
+            border-bottom: 1px solid #b9bdc9;
+            margin: 30px 0 40px 0;
+
+            h2 {
+                padding-bottom: 30px;
+                margin-left: -24px; // hanging punctuation
+            }
+
+            &:last-of-type {
+                border-bottom: none;
+            }
         }
-    }
 
-    section {
-        border-bottom: 3px solid #b9bdc9;
-        margin: 30px 0 40px 0;
-
-        h2 {
+        .footer {
+            border-top: 3px solid #b9bdc9;
+            padding-top: 20px;
             padding-bottom: 30px;
-            margin-left: -36px;
+            margin-top: 40px;
         }
 
-        &:last-of-type {
-            border-bottom: none;
+        ul.index {
+            a {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
     }
 
-    .footer {
-        border-top: 3px solid #b9bdc9;
-        padding-top: 20px;
-        padding-bottom: 30px;
-        margin-top: 40px;
-    }
+    .menu-toggler {
+        position: fixed;
+        width: 40px;
+        height: 30px;
+        border-radius: 5px;
+        background:#fff;
+        border: 1px solid #ddd;
+        top: 20px;
+        left: 30px;
+        cursor: pointer;
 
-    ul.index {
-        a {
-            &:hover {
-                text-decoration: none;
+        .line {
+            width: 20px;
+            margin-left: 10px;
+            margin-top: 5px;
+            height: 3px;
+            background:#ccc;
+            border-radius: 10px;
+        }
+
+        &:hover {
+            border-color: #999;
+
+            .line {
+                background:#999;
             }
         }
     }
