@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Programming in Haskell | First steps</title>
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/normalize-css/normalize.css">
+    <link rel="stylesheet" href="css/jquery.sidr.light.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="menu-toggler" title="Table of contents">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <div id="sidr">
+        <ul>
+            <li><a href="./chapter-1.html">Introduction</a></li>
+            <li><a href="./chapter-2.html">First steps</a></li>
+            <li><a href="./chapter-3.html">Types and classes</a></li>
+            <li><a href="./chapter-4.html">Defining functions</a></li>
+            <li><a href="./chapter-5.html">List comprehensions</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+
+        <!-- SAMPLE CONTENT -->
+
+        <h1 class="beta">First steps</h1>
+
+        <br>
+
+        <p>
+            In this chapter we take our first proper steps with Haskell. We start by intro- ducing the Hugs system and the standard prelude, then explain the notation for function application, develop our first Haskell script, and conclude by dis- cussing a number of syntactic conventions concerning scripts.
+        </p>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 2.1. The Hugs system</h2>
+            <p>
+                As we saw in the previous chapter, small Haskell programs can be executed by hand. In practice, however, we usually require a system that can execute programs automatically. In this book we use an interactive system called <i>Hugs</i>, which is the most widely used implementation of Haskell.
+            </p>
+            <p>
+                The interactive nature of Hugs makes it well suited for teaching and prototyping, and its performance is sufficient for most applications. However, if greater performance or a stand-alone executable version of a program is required, a number of compilers for Haskell are also available, of which the most widely used is the Glasgow Haskell Compiler. This compiler also has an interactive version that operates in a similar manner to Hugs, and can readily be used in its place for the purposes of this book.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 2.2. The standard prelude</h2>
+
+            <p>
+                When the Hugs system is started it first loads a library file called <i>Prelude.hs</i>, and then displays a > prompt to indicate that the system is waiting for the user to enter an expression to be evaluated. For example, the library file de- fines many familiar functions that operate on integers, including the five main arithmetic operations of addition, subtraction, multiplication, division, and ex- ponentiation, as illustrated below:
+
+                <pre>
+                    > 2 + 3
+                    5
+
+                    > 2 - 3
+                    −1
+
+                    > 2 * 3
+                    6
+
+                    > 2 ↑ 3
+                    8
+                </pre>
+            </p>
+
+            <p>
+                Note that the integer division operator is written as <i>‘div‘</i>, and rounds down to the nearest integer if the result is a proper fraction.
+            </p>
+            <p>
+                Following normal mathematical convention, exponentiation has higher priority than multiplication and division, which in turn have higher priority than addition and subtraction. For example, 2 ∗ 3 ↑ 4 means 2 ∗ (3 ↑ 4), while 2 + 3 ∗ 4 means 2 + (3 ∗ 4). Moreover, exponentiation associates (brackets) to the right, while the other four arithmetic operators associate to the left. For example, 2 ↑ 3 ↑ 4 means 2 ↑ (3 ↑ 4), while 2 − 3 + 4 means (2 − 3) + 4. In practice, however, it is often clearer to use explicit parentheses in such arith- metic expressions, rather than relying on the above conventions.
+            </p>
+            <p>
+                In addition to functions on integers, the library file also provides a range of useful functions that operate on lists. In Haskell, the elements of a list are enclosed in square parentheses, and are separated by commas. Some of the most commonly used library functions on lists are illustrated below.
+
+                <ul>
+                    <li>
+                            Select the first element of a non-empty list:
+            <pre>
+                > head [1,2,3,4,5]
+                1
+            </pre>
+                    </li>
+                    <li>
+                            Remove the first element from a non-empty list:
+            <pre>
+                > tail [1,2,3,4,5]
+                [2,3,4,5]
+            </pre>
+                    </li>
+                    <li>
+                            Select the <i>n</i>th element of list (counting from zero):
+            <pre>
+                > [1,2,3,4,5] !! 2
+                3
+            </pre>
+                    </li>
+                    <li>
+                            Select the first <i>n</i> elements of a list:
+            <pre>
+                > take 3 [1,2,3,4,5]
+                [1, 2, 3]
+            </pre>
+                    </li>
+                    <li>
+                            Remove the first <i>n</i> elements from a list:
+            <pre>
+                > drop 3 [1, 2, 3, 4, 5]
+                [4, 5]
+            </pre>
+                    </li>
+                    <li>
+                        Calculate the length of a list:
+            <pre>
+                > length [1, 2, 3, 4, 5]
+                5
+            </pre>
+                    </li>
+                    <li>
+                        Calculate the sum of a list of numbers:
+            <pre>
+                > sum [1, 2, 3, 4, 5]
+                15
+            </pre>
+                    </li>
+                    <li>
+                        Calculate the product of a list of numbers:
+            <pre>
+                > product [1, 2, 3, 4, 5]
+                120
+            </pre>
+                    </li>
+                    <li>
+                        Append two lists:
+            <pre>
+                > [1, 2, 3] ++ [4, 5]
+                [1, 2, 3, 4, 5]
+            </pre>
+                    </li>
+                    <li>
+                        Reverse a list:
+            <pre>
+                > reverse [1, 2, 3, 4, 5]
+                [5, 4, 3, 2, 1]
+            </pre>
+                    </li>
+                </ul>
+            </p>
+
+            <p>
+                Some of the functions in the standard prelude may produce an error for certain values of their arguments. For example, attempting to divide by zero or select the first element of an empty list will produce an error:
+
+                <pre>
+                    > 1 `div` 0
+                    Error
+
+                    > head []
+                    Error
+                </pre>
+            </p>
+            <p>
+                In practice, when an error occurs the Hugs system also produces a message that provides some information about the likely cause.
+            </p>
+            <p>
+                For reference, appendix A presents some of the most commonly used definitions from the standard prelude, and appendix B shows how special Haskell symbols, such as ↑ and ++, are typed using a normal keyboard.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 2.3. Function application</h2>
+
+            <p>
+                In mathematics, the application of a function to its arguments is usually denoted by enclosing the arguments in parentheses, while the multiplication of two values is often denoted silently, by writing the two values next to one another. For example, in mathematics the expression
+
+                <pre>
+                    f (a, b) + c d
+                </pre>
+
+                means apply the function f to two arguments a and b, and add the result to the product of c and d. Reflecting its primary status in the language, function application in Haskell is denoted silently using spacing, while the multiplication of two values is denoted explicitly using the operator ∗. For example, the expression above would be written in Haskell as follows:
+
+                <pre>
+                    f a b + c ∗ d
+                </pre>
+            </p>
+
+            <p>
+                Moreover, function application has higher priority than all other operators. For example, <i>f a + b</i> means <i>(f a) + b</i>. The following table gives a few fur- ther examples to illustrate the differences between the notation for function application in mathematics and in Haskell:
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mathematics</th>
+                        <th>Haskell</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>f (x)</td>
+                        <td>f x</td>
+                    </tr>
+                    <tr>
+                        <td>f (x,y)</td>
+                        <td>f x y</td>
+                    </tr>
+                    <tr>
+                        <td>f (g(x))</td>
+                        <td>f (g x)</td>
+                    </tr>
+                    <tr>
+                        <td>f (x, g(y))</td>
+                        <td>f x (g y)</td>
+                    </tr>
+                    <tr>
+                        <td>f (x)g(y)</td>
+                        <td>f x ∗ g y</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                Note that parentheses are still required in the Haskell expression <i>f (g x)</i> above, because <i>f g x</i> on its own would be interpreted as the application of the function <i>f</i> to two arguments <i>g</i> and <i>x</i>, whereas the intention is that <i>f</i> is applied to one argument, namely the result of applying the function <i>g</i> to an argument <i>x</i>. A similar remark holds for the expression <i>f x (g y)</i>.
+            </p>
+
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 2.4. Haskell scripts</h2>
+            <p>
+                As well as the functions provided in the standard prelude, it is also possible to define new functions. New functions cannot be defined at the > prompt within Hugs, but must be defined within a <i>script</i>, a text file comprising a sequence of definitions. By convention, Haskell scripts usually have a .hs suffix on their filename to differentiate them from other kinds of files.
+            </p>
+
+            <h3 class="epsilon">My first script</h3>
+            <p>
+                When developing a Haskell script, it is useful to keep two windows open, one running an editor for the script, and the other running Hugs. As an example, suppose that we start a text editor and type in the following two function definitions, and save the script to a file called <i>test.hs</i>:
+
+                <pre>
+                    doublex = x + x
+                    quadruple x = double (double x)
+                </pre>
+
+                In turn, suppose that we leave the editor open, and in another window start up the Hugs system and instruct it to load the new script:
+
+                <pre>
+                    > :load test.hs
+                </pre>
+
+                Now both <i>Prelude.hs</i> and <i>test.hs</i> are loaded, and functions from both scripts can be freely used. For example:
+
+                <pre>
+                    > quadruple 10
+                    40
+
+                    > take (double 2) [1, 2, 3, 4, 5, 6]
+                    [1,2,3,4]
+                </pre>
+
+                Now suppose that we leave Hugs open, return to the editor, add the following two function definitions to those already typed in, and then resave the file:
+
+                <pre>
+                    factorial n = product [1..n]
+                    average ns = sum ns `div` length ns
+                </pre>
+
+                We could equally well have defined average <i>ns = div (sum ns) (length ns)</i>, but writing <i>div</i> between its two arguments is more natural. In general, any function with two arguments can be written between its arguments by enclosing the name of the function in single back quotes ` `.
+            </p>
+
+            <p>
+                Hugs does not automatically reload scripts when they are modified, so a reload command must be executed before the new definitions can be used:
+
+                <pre>
+                    > :reload
+
+                    > factorial 10
+                    3628800
+
+                    > average [1, 2, 3, 4, 5]
+                    3
+                </pre>
+            </p>
+
+            <p>
+                For reference, the table below summarises the meaning of some of the most commonly used Hugs commands. Note that any command can be abbreviated by its first character. For example, <i>:load</i> can be abbreviated by <i>:l</i>. The command <i>:type</i> is explained in more detail in the next chapter.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><i>:load name</i></td>
+                        <td>load script name</td>
+                    </tr>
+                    <tr>
+                        <td><i>:reload</i></td>
+                        <td>reload current script</td>
+                    </tr>
+                    <tr>
+                        <td><i>:edit name</i></td>
+                        <td>edit script name</td>
+                    </tr>
+                    <tr>
+                        <td><i>:edit</i></td>
+                        <td>edit current script</td>
+                    </tr>
+                    <tr>
+                        <td><i>:type expr</i></td>
+                        <td>show type of expr</td>
+                    </tr>
+                    <tr>
+                        <td><i>:?</i></td>
+                        <td>show all commands</td>
+                    </tr>
+                    <tr>
+                        <td><i>:quit</i></td>
+                        <td>quit Hugs</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="epsilon">Naming requirements</h3>
+
+            <p>
+                When defining a new function, the names of the function and its arguments must begin with a lower-case letter, but can then be followed by zero or more letters (both lower- and upper-case), digits, underscores, and forward single quotes. For example, the following are all valid names:
+
+                <pre>
+                    myFun   fun1   arg   2   x′
+                </pre>
+
+                The following list of <i>keywords</i> have a special meaning in the language, and cannot be used as the names of functions or their arguments:
+
+                <pre>
+                    case class data default deriving do else
+                    if import in infix infixl infixr instance
+                    let module newtype of then type where
+                </pre>
+            </p>
+
+            <p>
+                By convention, list arguments in Haskell usually have the suffix <i>s</i> on their name to indicate that they may contain multiple values. For example, a list of numbers might be named <i>ns</i>, a list of arbitrary values might be named <i>xs</i>, and a list of list of characters might be named <i>css</i>.
+            </p>
+
+            <h3 class="epsilon">The layout rule</h3>
+
+            <p>
+                Within a script, each definition must begin in precisely the same column. This <i>layout rule</i> makes it possible to determine the grouping of definitions from their indentation. For example, in the script
+
+                <pre>
+                    a = b + c
+                        where
+                            b = 1
+                            c = 2
+                    d = a * 2
+                </pre>
+
+                it is clear from the indentation that <i>b</i> and <i>c</i> are local definitions for use within the body of <i>a</i>. If desired, such grouping can be made explicit by enclosing a sequence of definitions in curly parentheses and separating each definition by a semi-colon. For example, the above script could also be written as:
+
+                <pre>
+                    a = b + c
+                        where
+                            { b = 1;
+                              c = 2 }
+                    d = a * 2
+                </pre>
+
+                In general, however, it is usually clearer to rely on the layout rule to determine the grouping of definitions, rather than use explicit syntax.
+            </p>
+
+            <h3 class="epsilon">Comments</h3>
+
+            <p>
+                In addition to new definitions, scripts can also contain comments that will be ignored by Hugs. Haskell provides two kinds of comments, called <i>ordinary</i> and <i>nested</i>. Ordinary comments begin with the symbol -- and extend to the end of the current line, as in the following examples:
+
+                <pre>
+                    -- Factorial of a positive integer:
+                    factorial n = product [1..n]
+
+                    -- Average of a list of integers:
+                    average ns = sum ns `div` length ns
+                </pre>
+            </p>
+
+            <p>
+                Nested comments begin and end with the symbols {- and -}, may span mul- tiple lines, and may be nested in the sense that comments can contain other comments. Nested comments are particularly useful for temporarily removing sections of definitions from a script, as in the following example:
+
+                <pre>
+                    {-
+                        doublex = x+x
+                        quadruple x = double (double x)
+                    -}
+                </pre>
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 2.5. Chapter remarks</h2>
+
+            <p>
+                The Hugs system is freely available on the web from the Haskell home page, <a href="http://www.haskell.org">haskell.org</a>, which also contains a wealth of other useful resources.
+            </p>
+        </section>
+
+        <!-- SAMPLE CONTENT -->
+
+    </div><!-- .content -->
+
+    <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="lib/sidr/jquery.sidr.min.js"></script>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+
+    <script type="text/javascript" src="http://use.typekit.net/iou4rmn.js"></script>
+    <script type="text/javascript">
+        try {
+            Typekit.load();
+        } catch(e) {
+            console.log (e);
+        }
+    </script>
+</body>
+</html>

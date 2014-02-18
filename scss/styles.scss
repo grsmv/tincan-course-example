@@ -1,8 +1,6 @@
 @import "typeplate";
 @import "vars-typeplate";
 
-// color scheme: http://www.colourlovers.com/palette/3229252/Chime_In_Ancient
-
 html {
     height: 100%;
 }
@@ -27,6 +25,12 @@ body {
         padding-bottom: 50px;
         padding-top: 30px;
 
+        // $blurSize: 10px;
+
+        // -webkit-filter: blur($blurSize);
+        // -moz-filter:    blur($blurSize);
+        // filter:         blur($blurSize);
+
         section {
             border-bottom: 1px solid #b9bdc9;
             margin: 30px 0 40px 0;
@@ -38,6 +42,26 @@ body {
 
             &:last-of-type {
                 border-bottom: none;
+            }
+        }
+
+        table {
+            margin: 0 auto 30px; // centering
+
+            thead {
+                th {
+                    border-bottom: 1px solid #ddd;
+                    padding-left: 20px;
+
+                    &:last-of-type {
+                        padding-right: 20px;
+                    }
+                }
+            }
+            tbody {
+                td {
+                    padding-left: 20px;
+                }
             }
         }
 

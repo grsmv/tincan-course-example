@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Programming in Haskell | Types and classes</title>
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/normalize-css/normalize.css">
+    <link rel="stylesheet" href="css/jquery.sidr.light.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="menu-toggler" title="Table of contents">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <div id="sidr">
+        <ul>
+            <li><a href="./chapter-1.html">Introduction</a></li>
+            <li><a href="./chapter-2.html">First steps</a></li>
+            <li><a href="./chapter-3.html">Types and classes</a></li>
+            <li><a href="./chapter-4.html">Defining functions</a></li>
+            <li><a href="./chapter-5.html">List comprehensions</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+
+        <!-- SAMPLE CONTENT -->
+
+        <h1 class="beta">Types and classes</h1>
+
+        <br>
+
+        <p>
+            In this chapter we introduce types and classes, two of the most fundamental concepts in Haskell. We start by explaining what types are and how they are used in Haskell, then present a number of basic types and ways to build larger types by combining smaller types, discuss function types in more detail, and conclude with the concepts of polymorphic types and type classes.
+        </p>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.1. Basic concepts</h2>
+            <p>
+                A <i>type</i> is a collection of related values. For example, the type <i>Bool</i> contains the two logical values <i>False</i> and <i>True</i>, while the type <i>Bool → Bool</i> contains all functions that map arguments from <i>Bool</i> to results from <i>Bool</i>, such as the logical negation function ¬. We use the notation <i>v :: T</i> to mean that <i>v</i> is a value in the type <i>T</i>, and say that <i>v</i> “has type” <i>T</i>. For example:
+
+                <pre>
+                    False :: Bool
+                    True :: Bool
+                    ¬ :: Bool → Bool
+                </pre>
+            </p>
+
+            <p>
+                More generally, the symbol :: can also be used with expressions that have not yet been evaluated, in which case <i>e :: T</i> means that evaluation of the expression e will produce a value of type <i>T</i>. For example:
+
+                <pre>
+                    ¬ False :: Bool
+                    ¬ True :: Bool
+                    ¬ (¬ False) :: Bool
+                </pre>
+            </p>
+
+            <p>
+                In Haskell, every expression must have a type, which is calculated prior to evaluating the expression by a process called <i>type inference</i>. The key to this process is a typing rule for function application, which states that if f is a function that maps arguments of type <i>A</i> to results of type <b>B</b>, and <i>e</i> is an expression of type <i>A</i>, then the application <i>f e</i> has type <i>B</i>:
+
+                <pre>
+                    f :: A → B
+                    e :: A
+                    f e :: B
+                </pre>
+            </p>
+
+            <p>
+                For example, the typing <i>¬ False :: Bool</i> can be inferred from this rule using the fact that <i>¬ :: Bool → Bool</i> and <i>False :: Bool</i>. On the other hand, the expression <i>¬ 3</i> does not have a type under the above rule for function application, because this would require that <i>3 :: Bool</i>, which is not valid because 3 is not a logical value. Expressions such as <i>¬ 3</i> that do not have a type are said to contain a type error, and are deemed to be invalid expressions.
+            </p>
+            <p>
+                Because type inference precedes evaluation, Haskell programs are <i>type safe</i>, in the sense that type errors can never occur during evaluation. In practice, type inference detects a very large class of program errors, and is one of the most useful features of Haskell. Note, however, that the use of type inference does not eliminate the possibility that other kinds of error may occur during evaluation. For example, the expression 1 <i>`div`</i> 0 is free from type errors, but produces an error when evaluated because division by zero is undefined.
+            </p>
+            <p>
+                The downside of type safety is that some expressions that evaluate success- fully will be rejected on type grounds. For example, the conditional expression <b>if</b> <i>True</i> <b>then</b> <i>1</i> <b>else</b> <i>False</i> evaluates to the number 1, but contains a type error and is hence deemed invalid. In particular, the typing rule for a conditional expression requires that both possible results have the same type, whereas in this case the first such result, 1, is a number and the second, <i>False</i>, is a logical value. In practice, however, programmers quickly learn how to work within the limits of the type system and avoid such problems.
+            </p>
+            <p>
+                In Hugs, the type of any expression can be displayed by preceding the expression by the command <i>:type</i>. For example:
+                <pre>
+                    > :type ¬
+                    ¬ :: Bool → Bool
+
+                    > :type ¬ False
+                    ¬ False :: Bool
+
+                    > :type ¬ 3
+                    Error
+                </pre>
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.3. Basic types</h2>
+
+            <p>
+                Haskell provides a number of basic types that are built-in to the language, of which the most commonly used are described below.
+            </p>
+        </section>
+
+        <!-- SAMPLE CONTENT -->
+
+    </div><!-- .content -->
+
+    <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="lib/sidr/jquery.sidr.min.js"></script>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+
+    <script type="text/javascript" src="http://use.typekit.net/iou4rmn.js"></script>
+    <script type="text/javascript">
+        try {
+            Typekit.load();
+        } catch(e) {
+            console.log (e);
+        }
+    </script>
+</body>
+</html>
