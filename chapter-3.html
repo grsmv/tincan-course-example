@@ -100,6 +100,569 @@
             <p>
                 Haskell provides a number of basic types that are built-in to the language, of which the most commonly used are described below.
             </p>
+
+            <h3 class="epsilon"><i>Bool</i> &mdash; logical values</h3>
+
+            <p>
+                This type contains the two logical values False and True.
+            </p>
+
+            <h3 class="epsilon"><i>Char</i> &mdash; single characters</h3>
+
+            <p>
+                This type contains all single characters that are available from a normal keyboard, such as ’a’, ’A’, ’3’ and ’_’, as well as a number of control characters that have a special effect, such as ’\n’ (move to a new line) and ’\t’ (move to the next tab stop). As is standard in most programming languages, single characters must be enclosed in single forward quotes ’ ’.
+            </p>
+
+            <h3 class="epsilon"><i>String</i> &mdash; strings of characters</h3>
+
+            <p>
+                This type contains all sequences of characters, such as "abc", "1+2=3", and the empty string "". Again, as is standard in most programming languages, strings of characters must be enclosed in double quotes " ".
+            </p>
+
+            <h3 class="epsilon"><i>Int</i> &mdash; fixed-precision integers</h3>
+
+            <p>
+                This type contains integers such as −100, 0, and 999, with a fixed amount of computer memory being used for their storage. For example, the Hugs system has values of type Int in the range −231 to 231 − 1. Going outside this range can give unexpected results. For example, evaluating 2 ↑ 31 :: Int using Hugs (the use of :: forces the result to an Int rather than some other numeric type) gives a negative number as the result, which is incorrect.
+            </p>
+
+            <h3 class="epsilon"><i>Integer</i> &mdash; arbitrary-precision integers</h3>
+
+            <p>
+                This type contains all integers, with as much memory as necessary being used for their storage, thus avoiding the imposition of lower and upper limits on the range of numbers. For example, evaluating 2 ↑ 31 :: <i>Integer</i> using any Haskell system will produce the correct result.
+            </p>
+            <p>
+                Apart from the different memory requirements and precision for numbers of type Int and Integer , the choice between these two types is also one of per- formance. In particular, most computers have built-in hardware for processing fixed-precision integers, whereas arbitrary-precision integers must usually be processed using the slower medium of software, as sequences of digits.
+            </p>
+
+            <h3 class="epsilon"><i>Float</i> &mdash; single-precision floating-point numbers</h3>
+
+            <p>
+                This type contains numbers with a decimal point, such as −12.34, 1.0, and 3.14159, with a fixed amount of memory being used for their storage. The term floating-point comes from the fact that the number of digits permitted after the decimal point depends upon the magnitude of the number. For example, evaluating sqrt 2 :: Float using Hugs gives the result 1.41421 (the library function sqrt calculates the square root of a number), which has five digits after the point, whereas sqrt 99999 :: Float gives 316.226, which only has three digits after the point. Programming with floating-point numbers is a specialist topic that requires a careful treatment of rounding errors, and we say little more about such numbers in this introductory text.
+            </p>
+
+            <p>
+                We conclude this section by noting a single number may have more than one numeric type. For example, 3 :: Int , 3 :: Integer , and 3 :: Float are all valid typings for the number 3. This raises the interesting question of what type such numbers should be assigned during type inference, which will be answered later in this chapter when we consider type classes.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.3. List types</h2>
+
+            <p>
+                A <i>list</i> is a sequence of <i>elements</i> of the same type, with the elements being enclosed in square parentheses and separated by commas. We write [<i>T</i>] for the type of all lists whose elements have type T . For example:
+
+                <pre>
+                    [False, True, False ]   :: [Bool]
+                    ['a', 'b', 'c', 'd']    :: [Char]
+                    ["One", "Two", "Three"] :: [String]
+                </pre>
+            </p>
+
+            <p>
+                The number of elements in a list is called its <i>length</i>. The list [ ] of length zero is called the empty list, while lists of length one, such as such as [<i>False</i>] and ['a'], are called   singleton lists. Note that [[]] and [] are different lists, the former being a singleton list comprising the empty list as its only element, and the latter being simply the empty list.
+            </p>
+
+            <p>
+                There are three further points to note about list types. First of all, the type of a list conveys no information about its length. For example, the lists [<i>False, True</i>] and [<i>False, True, False</i>] both have type [<i>Bool</i>], even though they have different lengths. Secondly, there are no restrictions on the type of the elements of a list. At present we are limited in the range of examples that we can give because the only non-basic type that we have introduced at this point is list types, but we can have lists of lists, such as:
+
+                <pre>
+                    [['a', 'b'], ['c', 'd', 'e']] :: [[Char]]
+                </pre>
+            </p>
+
+            <p>
+                Finally, there is no restriction that a list must have a finite length. In particular, due to the use of lazy evaluation in Haskell, lists with an infinite length are both natural and practical, as we shall see in <a href="./chapter-12.html">Chapter 12</a>.
+            </p>
+
+        </section>
+        <section>
+
+            <h2 class="gamma"><span>§</span> 3.4. Tuple types</h2>
+
+            <p>
+                A <i>tuple</i> is a finite sequence of <i>components</i> of possibly different types, with the components being enclosed in round parentheses and separated by commas. We write (<i>T1, T2, . . . , Tn</i>) for the type of all tuples whose ith components have type <i>Ti</i> for any <i>i</i> in the range 1 to <i>n</i>. For example:
+
+                <pre>
+                    (False, True)      :: (Bool, Bool)
+                    (False, 'a', True) :: (Bool, Char, Bool)
+                    ("Yes", True, 'a') :: (String, Bool, Char)
+                </pre>
+            </p>
+
+            <p>
+                The number of components in a tuple is called its <i>arity</i>. The tuple () of arity zero is called the empty tuple, tuples of arity two are called pairs, tuples of arity three are called triples, and so on. Tuples of arity one, such as (<i>False</i>), are not permitted because they would conflict with the use of parentheses to make the evaluation order explicit, such as in (1 + 2) ∗ 3.
+            </p>
+
+            <p>
+                As with list types, there are three further points to note about tuple types. First of all, the type of a tuple conveys its arity. For example, the type (<i>Bool, Char</i>) contains all pairs comprising a first component of type <i>Bool</i> and a second component of type <i>Char</i>. Secondly, there are no restrictions on the types of the components of a tuple. For example, we can now have tuples of tuples, tuples of lists, and lists of tuples:
+
+                <pre>
+                    ('a', (False , 'b'))        :: (Char, (Bool, Char))
+                    (['a', 'b'], [False, True]) :: ([Char], [Bool])
+                    [('a', False), ('b', True)] :: [(Char, Bool)]
+                </pre>
+            </p>
+
+            <p>
+                Finally, note that tuples must have a finite arity, in order to ensure that tuple types can always be calculated prior to evaluation.
+            </p>
+
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.5. Function types</h2>
+
+            <p>
+                A <i>function</i> is a mapping from arguments of one type to results of another type. We write <i>T1 &rarr; T2</i> for the type of all functions that map arguments of type <i>T1</i> to results of type <i>T2</i>. For example:
+
+                <pre>
+                    ¬ :: Bool → Bool
+                    isDigit :: Char → Bool
+                </pre>
+
+                (The library function <i>isDigit</i> decides if a character is a numeric digit.) Because there are no restrictions on the types of the arguments and results of a function, the simple notion of a function with a single argument and result is already sufficient to handle multiple arguments and results, by packaging multiple values using lists or tuples. For example, we can define a function <i>add</i> that calculates the sum of a pair of integers, and a function <i>zero</i> to that returns the list of integers from zero to a given limit, as follows:
+
+                <pre>
+                    add :: (Int, Int) → Int
+                    add (x, y) = x + y
+                    zeroto :: Int → [Int]
+                    zeroto n = [0..n]
+                </pre>
+            </p>
+
+            <p>
+                In these examples we have followed the Haskell convention of preceding func- tion definitions by their types, which serves as useful documentation. Any such types provided manually by the user are checked for consistency with the types calculated automatically using type inference.
+            </p>
+
+            <p>
+                Note that there is no restriction that functions must be <i>total</i> on their argument type, in the sense that there may be some arguments for which the result is not defined. For example, the result of the library function head that selects the first element of a list is undefined if the list is empty.
+            </p>
+
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.6. Curried functions</h2>
+
+            <p>
+                Functions with multiple arguments can also be handled in another, perhaps less obvious way, by exploiting the fact that functions are free to return functions as results. For example, consider the following definition:
+
+                <pre>
+                    add′ :: Int → (Int → Int)
+                    add′ x y = x + y
+                </pre>
+            </p>
+
+            <p>
+                The type states that <i>add′</i> is a function that takes an argument of type <i>Int</i>, and returns a result that is a function of type <i>Int → Int</i>. The definition itself states that <i>add′</i> takes an integer <i>x</i> followed by an integer <i>y</i>, and returns the result <i>x + y</i>. More precisely, <i>add′</i> takes an integer <i>x</i> and returns a function, which in turn takes an integer <i>y</i> and returns the result <i>x + y</i>.
+            </p>
+
+            <p>
+                Note that the function <i>add′</i> produces the same final result as the function <i>add</i> from the previous section, but whereas <i>add</i> takes its two arguments at the same time packaged as a pair, <i>add′</i> takes its two arguments one at a time, as reflected in the different types of the two functions:
+
+                <pre>
+                    add  :: (Int, Int) → Int
+                    add′ :: Int → (Int → Int)
+                </pre>
+            </p>
+
+            <p>
+                Functions with more than two arguments can also be handled using the same technique, by returning functions that return functions, and so on. For example, a function <i>mult</i> that takes three integers, one at a time, and returns their product, can be defined as follows:
+
+                <pre>
+                    mult :: Int → (Int → (Int → Int))
+                    mult x y z = x ∗ y ∗ z
+                </pre>
+            </p>
+
+            <p>
+                This definition states that <i>mult</i> takes an integer <i>x</i> and returns a function, which in turn takes an integer <i>y</i> and returns another function, which finally takes an integer <i>z</i> and returns the result <i>x ∗ y ∗ z</i>.
+            </p>
+
+            <p>
+                Functions such as <i>add′</i> and <i>mult</i> that take their arguments one at a time are called <i>curried</i>. As well as being interesting in their own right, curried functions are also more flexible than functions on tuples, because useful functions can often be made by <i>partially applying</i> a curried function with less than its full complement of arguments. For example, a function that increments an integer is given by the partial application <i>add′ 1 :: Int → Int</i> of the curried function <i>add′</i> with only one of its two arguments.
+            </p>
+
+            <p>
+                To avoid excess parentheses when working with curried functions, two simple conventions are adopted. First of all, the function arrow → in types is assumed to associate to the right. For example,
+
+                <pre>
+                    Int → Int → Int → Int
+                </pre>
+
+                means
+
+                <pre>
+                    Int → (Int → (Int → Int))
+                </pre>
+            </p>
+
+            <p>
+                Consequently, function application, which is denoted silently using spacing, is assumed to associate to the left. For example,
+
+                <pre>
+                    mult x y z
+                </pre>
+
+                means
+
+                <pre>
+                    ((mult x) y) z
+                </pre>
+            </p>
+
+            <p>
+                Unless tupling is explicitly required, all functions in Haskell with multiple arguments are normally defined as curried functions, and the two conventions above are used to reduce the number of parentheses that are required.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.7. Polymorphic types</h2>
+
+            <p>
+                The library function length calculates the <i>length</i> of any list, irrespective of the type of the elements of the list. For example, it can be used to calculate the length of a list of integers, a list of strings, or even a list of functions:
+
+                <pre>
+                    > length [1, 3, 5, 7]
+                    4
+
+                    > length ["Yes", "No"]
+                    2
+
+                    > length [isDigit, isLower, isUpper]
+                    3
+                </pre>
+            </p>
+
+            <p>
+                The idea that <i>length</i> can be applied to lists whose elements have any type is made precise in its type by the inclusion of a <i>type variable</i>. Type variables must begin with a lower-case letter, and are usually simply named <i>a, b, c</i>, and so on. For example, the type of <i>length</i> is as follows:
+
+                <pre>
+                    length :: [a] → Int
+                </pre>
+            </p>
+
+            <p>
+                That is, for any type a, the function <i>length</i> has type <i>[a] → Int</i>. A type that contains one or more type variables is called <i>polymorphic</i> ("of many forms"), as is an expression with such a type. Hence, <i>[a] → Int</i> is a polymorphic type and <i>length</i> is a polymorphic function. More generally, many of the functions provided in the standard prelude are polymorphic. For example:
+
+                <pre>
+                    fst  :: (a, b) → a
+                    head :: [a] → a
+                    take :: Int → [a] → [a]
+                    zip  :: [a] → [b] → [(a, b)]
+                    id   :: a → a
+                </pre>
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.8. Overloaded types</h2>
+            <p>
+                The arithmetic operator + calculates the sum of any two numbers of the same numeric type. For example, it can be used to calculate the sum of two integers, or the sum of two floating-point numbers:
+
+                <pre>
+                    > 1 + 2
+                    3
+
+                    > 1.1 + 2.2
+                    3.3
+                </pre>
+            </p>
+
+            <p>
+                The idea that + can be applied to numbers of any numeric type is made precise in its type by the inclusion of a <i>class constraint</i>. Class constraints are written in the form <i>C a</i>, where <i>C</i> is the name of a class and a is a type variable. For example, the type of + is as follows:
+
+                <pre>
+                    (+) :: Numa ⇒ a → a → a
+                </pre>
+            </p>
+
+            <p>
+                That is, for any type a that is a <i>instance</i> of the class <i>Num</i> of numeric types, the function (+) has type <i>a → a → a</i>. (Parenthesising an operator converts it into a curried function, and is explained in more detail in the next chapter.) A type that contains one or more class constraints is called <i>overloaded</i>, as is an expression with such a type. Hence, <i>Num a ⇒ a → a → a</i> is an overloaded type and (+) is an overloaded function. More generally, most of the numeric functions provided in the standard prelude are overloaded. For example:
+
+                <pre>
+                    (-)    :: Num a ⇒ a → a → a
+                    (*)    :: Num a ⇒ a → a → a
+                    negate :: Num a ⇒ a → a
+                    abs    :: Num a ⇒ a → a
+                    signum :: Num a ⇒ a → a
+                </pre>
+
+                Moreover, numbers themselves are also overloaded. For example, <i>3 :: Num a ⇒ a</i> means that for any numeric type a, the number 3 has type <i>a</i>.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 3.9. Basic classes</h2>
+
+            <p>
+                Recall that a type is a collection of related values. Building upon this notion, a class is a collection of types that support certain overloaded operations called methods. Haskell provides a number of basic classes that are built-in to the language, of which the most commonly used are described below.
+            </p>
+
+            <h3 class="epsilon"><i>Eq</i> &mdash; equality types</h3>
+
+            <p>
+                This class contains types whose values can be compared for equality and inequality using the following two methods:
+
+                <pre>
+                    (==) :: a → a → Bool
+                    (̸=) :: a → a → Bool
+                </pre>
+            </p>
+
+            <p>
+                All the basic types <i>Bool</i>, <i>Char</i>, <i>String</i>, <i>Int</i>, <i>Integer</i>, and <i>Float</i> are instances of the <i>Eq</i> class, as are list and tuple types, provided that their element and component types are instances of the class. For example:
+
+                <pre>
+                    > False == False
+                    True
+
+                    > 'a' == 'b' False
+                    False
+
+                    > "abc" == "abc"
+                    True
+
+                    > [1, 2] == [1, 2, 3]
+                    False
+
+                    > ('a', False) == ('a', False)
+                    True
+                </pre>
+            </p>
+
+            <p>
+                Note that function types are not in general instances of the <i>Eq</i> class, because it is not feasible in general to compare two functions for equality.
+            </p>
+
+            <h3 class="epsilon"><i>Ord</i> &mdash; ordered types</h3>
+
+            <p>
+                This class contains types that are instances of the equality class <i>Eq</i>, but in addition whose values are totally (linearly) ordered, and as such can be compared and processed using the following six methods:
+
+                <pre>
+                    (<) :: a → a → Bool
+                    (≤) :: a → a → Bool
+                    (>) :: a → a → Bool
+                    (≥) :: a → a → Bool
+                    min :: a → a → a
+                    max :: a → a → a
+                </pre>
+            </p>
+
+            <p>
+                All the basic types <i>Bool</i>, <i>Char</i>, <i>String</i>, <i>Int</i>, <i>Integer</i>, and <i>Float</i> are instances of the <i>Ord</i> class, as are list types and tuple types, provided that their element and component types are instances of the class. For example:
+
+                <pre>
+                    > False < True
+                    True
+
+                    > min 'a' 'b'
+                    'a'
+
+                    > "elegant" < "elephant"
+                    True
+
+                    > [1, 2, 3] < [1, 2]
+                    False
+
+                    > ('a', 2) < ('b', 1)
+                    True
+
+                    > ('a', 2) < ('a', 1)
+                    False
+                </pre>
+            </p>
+
+            <p>
+                Note that strings, lists and tuples are ordered <i>lexicographically</i>; that is, in the same way as words in a dictionary. For example, two pairs of the same type are in order if their first components are in order, in which case their second components are not considered, or if their first components are equal, in which case their second components must be in order.
+            </p>
+
+            <h3 class="epsilon"><i>Show</i> &mdash; showable types</h3>
+
+            <p>
+                This class contains types whose values can be converted into strings of characters using the following method:
+
+                <pre>
+                    show :: a → String
+                </pre>
+            </p>
+
+            <p>
+                All the basic types <i>Bool</i>, <i>Char</i>, <i>String</i>, <i>Int</i>, <i>Integer</i>, and <i>Float</i> are instances of the <i>Show</i> class, as are list types and tuple types, provided that their element and component types are instances of the class. For example:
+
+                <pre>
+                    > show False
+                    "False"
+
+                    > show ’a’
+                    "’a’"
+
+                    > show 123
+                    "123"
+
+                    > show [1, 2, 3]
+                    "[1, 2, 3]"
+
+                    > show (’a’, False)
+                    "(’a’, False)"
+                </pre>
+            </p>
+
+            <h3 class="epsilon"><i>Read</i> &mdash; readable types</h3>
+
+            <p>
+                This class is dual to <i>Show</i>, and contains types whose values can be converted from strings of characters using the following method:
+
+                <pre>
+                    read :: String → a
+                </pre>
+            </p>
+
+            <p>
+                All the basic types Bool, Char, String, Int, Integer, and Float are instances of the Read class, as are list types and tuple types, provided that their element and component types are instances of the class. For example:
+
+                <pre>
+                    > read "False" :: Bool
+                    False
+
+                    > read "’a’" :: Char
+                    ’a’
+
+                    > read "123" :: Int
+                    123
+
+                    > read "[1,2,3]" :: [Int]
+                    [1, 2, 3]
+
+                    > read "(’a’, False)" :: (Char, Bool)
+                    (’a’, False)
+                </pre>
+            </p>
+
+            <p>
+                The use of :: in these examples resolves the type of the result. In practice, however, the necessary type information can usually be inferred automatically from the context. For example, the expression <i>¬ (read "False")</i> requires no explicit type information, because the application of the logical negation function ¬ implies that <i>read</i> "False" must have type <i>Bool</i>.
+            </p>
+
+            <p>
+                Note that the result of <i>read</i> is undefined if its argument is not syntactically valid. For example, the expression ¬ (<i>read</i> "hello") produces an error when evaluated, because "hello" cannot be read as a logical value.
+            </p>
+
+            <h3 class="epsilon"><i>Num</i> &mdash; numeric types</h3>
+
+            <p>
+                This class contains types that are instances of the equality class <i>Eq</i> and showable class <i>Show</i>, but in addition whose values are numeric, and as such can be processed using the following six methods:
+
+                <pre>
+                    (+)    :: a → a → a
+                    (−)    :: a → a → a
+                    (∗)    :: a → a → a
+                    negate :: a → a
+                    abs    :: a → a
+                    signum :: a → a
+                </pre>
+            </p>
+
+            <p>
+                (The method <i>negate</i> returns the negation of a number, <i>abs</i> returns the absolute value, while <i>signum</i> returns the sign.) The basic types <i>Int</i>, <i>Integer</i>, and <i>Float</i> are instances of the <i>Num</i> class. For example:
+
+                <pre>
+                    > 1 + 2
+                    3
+
+                    > 1.1 + 2.2
+                    3.3
+
+                    > negate 3.3
+                    −3.3
+
+                    > abs (−3)
+                    3
+
+                    > signum (−3)
+                    −1
+                </pre>
+            </p>
+
+            <p>
+                Note that the <i>Num</i> class does not provide a division method, but as we shall now see, division is handled separately using two special classes, one for integral numbers and one for fractional numbers.
+            </p>
+
+            <h3 class="epsilon"><i>Integral</i> &mdash; integral types</h3>
+
+            <p>
+                This class contains types that are instances of the numeric class <i>Num</i>, but in addition whose values are integers, and as such support the methods of integer division and integer remainder:
+
+                <pre>
+                    div :: a → a → a
+                    mod :: a → a → a
+                </pre>
+            </p>
+
+            <p>
+                In practice, these two methods are often written between their two arguments by enclosing their names in single back quotes. The basic types <i>Int</i> and <i>Integer</i> are instances of the <i>Integral</i> class. For example:
+
+                <pre>
+                    > 7 `div` 2
+                    3
+
+                    > 7 `mod` 2
+                    1
+                </pre>
+            </p>
+
+            <p>
+                For efficiency reasons, a number of prelude functions that involve both lists and integers (such as <i>length</i>, <i>take</i>, and <i>drop</i>) are restricted to the type <i>Int</i> of finite-precision integers, rather than being applicable to any instance of the <i>Integral</i> class. If required, however, such generic versions of these functions are provided as part of an additional library file called <i>List.hs</i>.
+            </p>
+
+            <h3 class="epsilon"><i>Fractional</i> &mdash; fractional types</h3>
+
+            <p>
+                This class contains types that are instances of the numeric class <i>Num</i>, but in addition whose values are non-integral, and as such support the methods of fractional division and fractional reciprocation:
+
+                <pre>
+                    (/)   :: a → a → a
+                    recip :: a → a
+                </pre>
+            </p>
+
+            <p>
+                The basic type <i>Float</i> is an instance of the <i>Fractional</i> class. For example:
+
+                <pre>
+                    > 7.0/2.0
+                    3.5
+
+                    > recip 2.0
+                    0.5
+                </pre>
+            </p>
+
+        </section>
+        <section>
+
+            <h2 class="gamma"><span>§</span> 3.10. Chapter remarks</h2>
+
+            <p>
+                The term <i>Bool</i> for the type of logical values celebrates the pioneering work of George Boole on symbolic logic, while the term <i>curried</i> for functions that take their arguments one at a time celebrates the work of Haskell Curry (after whom the language Haskell itself is named) on such functions. A more detailed account of the type system is given in Haskell Report <a href="#fn-item1" id="fn-return1">[1]</a>, while formal descriptions for specialists can be found in [<a href="#fn-item2" id="fn-return2">2</a>, <a href="#fn-item3" id="fn-return3">3</a>].
+            </p>
+
+            <footer>
+                <ol class="foot-notes">
+                    <li id="fn-item1">
+                        Simon Peyton Jones. <i>Haskell 98 Language and Libraries: The Revised Report</i>. Cambridge University Press, 2003. Also available on the web from <a href="http://haskell.org/definition">haskell.org/definition</a>.
+                        <a href="#fn-return1">↩</a>
+                    </li>
+                    <li id="fn-item2">
+                        Mark P. Jones. Typing Haskell in Haskell. In <i>Proceedings of the 1999 Haskell Workshop</i>, Paris, France, 1999.
+                        <a href="#fn-return2">↩</a>
+                    </li>
+                    <li id="fn-item3">
+                        Karl-Filip Faxen. A Static Semantics for Haskell. In Graham Hutton, editor, <i>Journal of Functional Programming, Special Double Issue on Haskell</i>, <b>12</b>(4&5). Cambridge University Press, 2002.
+                        <a href="#fn-return3">↩</a>
+                    </li>
+                </ol>
+            </footer>
+
         </section>
 
         <!-- SAMPLE CONTENT -->
