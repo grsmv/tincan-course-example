@@ -22,7 +22,7 @@
             <li><a href="./chapter-2.html">First steps</a></li>
             <li><a href="./chapter-3.html">Types and classes</a></li>
             <li><a href="./chapter-4.html">Defining functions</a></li>
-            <li><a href="./chapter-5.html">List comprehensions</a></li>
+            <!-- <li><a href="./chapter-5.html">List comprehensions</a></li> -->
         </ul>
     </div>
 
@@ -399,11 +399,46 @@
                 <ul>
                     <li><code>(+)</code> is the addition function <code>λx → (λy → x + y)</code></li>
                     <li><code>(1+)</code> is the successor function <code>λy → 1 + y</code></li>
-                    <li><code>(1/) is the reciprocation function λy → 1 / y</code></li>
+                    <li><code>(1/)</code> is the reciprocation function <code>λy → 1 / y</code></li>
                     <li><code>(∗2)</code> is the doubling function <code>λx → x ∗ 2</code></li>
                     <li><code>(/2)</code> is the halving function <code>λx → x / 2</code></li>
                 </ul>
+                <br>
             </p>
+
+            <p>
+                Secondly, sections are necessary when stating the type of operators, because an operator itself is not a valid expression in Haskell. For example, the type of the logical conjunction operator ∧ is stated as follows:
+
+                <pre>
+                    (∧) :: Bool → Bool → Bool
+                </pre>
+            </p>
+
+            <p>
+                Finally, sections are also necessary when using operators as arguments to other functions. For example, the library function <i>and</i> that decides if all logical values in a list are <i>True</i> is defined by using the operator ∧ as an argument to the library function <i>foldr</i>, which is itself discussed in chapter 7:
+
+                <pre>
+                    and :: [Bool] → Bool
+                    and =  foldr (∧) True
+                </pre>
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 4.7. Chapter remarks</h2>
+
+            <p>
+                A formal meaning for pattern matching by translation using more primitive features of the language is given in the Haskell Report <a href="#fn-item1" id="fn-return1">[1]</a>. The Greek letter λ used when defining nameless functions comes from the <i>lambda calculus</i>, the mathematical theory of functions upon which Haskell is founded.
+            </p>
+
+            <footer>
+                <ol class="foot-notes">
+                    <li id="fn-item1">
+                        Simon Peyton Jones. <i>Haskell 98 Language and Libraries: The Revised Report</i>. Cambridge University Press, 2003. Also available on the web from <a href="http://haskell.org/definition">haskell.org/definition</a>.
+                        <a href="#fn-return1">↩</a>
+                    </li>
+                </ol>
+            </footer>
         </section>
 
         <!-- SAMPLE CONTENT -->
