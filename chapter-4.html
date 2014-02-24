@@ -380,6 +380,30 @@
 
         <section>
             <h2 class="gamma"><span>§</span> 4.6. Sections</h2>
+
+            <p>
+                Functions such as + that are written between their two arguments are called <i>operators</i>. As we have already seen, any function with two arguments can be converted into an operator by enclosing the name of the function in single back quotes, as in 7 <i>`div`</i> 2. However, the converse is also possible. In particular, any operator can be converted into a curried function that is written before its arguments by enclosing the name of the operator in parentheses, as in (+) 1 2. Moreover, this convention also allows one of the arguments to be included in the parentheses if desired, as in (1+) 2 and (+2) 1.
+            </p>
+            <p>
+                In general, if ⊕ is an operator, then expressions of the form (⊕), (<i>x</i> ⊕), and (⊕ <i>y</i>) for arguments <i>x</i> and <i>y</i> are called sections, whose meaning as functions can be formalised using lambda expressions as follows:
+
+                <pre>
+                    (⊕)   = λx → (λy → x ⊕ y)
+                    (x ⊕) = λy → x ⊕ y
+                    (⊕y)  = λx → x ⊕ y
+                </pre>
+            </p>
+
+            <p>
+                Sections have three main applications. First of all, they can be used to construct a number of simple but useful functions in a particularly compact way, as shown in the following examples:
+                <ul>
+                    <li><code>(+)</code> is the addition function <code>λx → (λy → x + y)</code></li>
+                    <li><code>(1+)</code> is the successor function <code>λy → 1 + y</code></li>
+                    <li><code>(1/) is the reciprocation function λy → 1 / y</code></li>
+                    <li><code>(∗2)</code> is the doubling function <code>λx → x ∗ 2</code></li>
+                    <li><code>(/2)</code> is the halving function <code>λx → x / 2</code></li>
+                </ul>
+            </p>
         </section>
 
         <!-- SAMPLE CONTENT -->
