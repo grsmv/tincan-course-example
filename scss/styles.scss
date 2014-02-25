@@ -13,6 +13,122 @@ body {
         .menu-toggler {
             left: 290px;
         }
+
+        .log-out {
+            left: 302px;
+        }
+    }
+
+    #login {
+        display: none;
+    }
+
+    // styles for no-access state
+    &.no-access {
+        .content {
+            $blurSize: 10px;
+            -webkit-filter: blur($blurSize);
+            -moz-filter:    blur($blurSize);
+            filter:         blur($blurSize);
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-toggler, #sidr, .log-out {
+            display: none;
+        }
+
+        #login {
+            @mixin focus () {
+                &:focus {
+                    box-shadow:   rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset,
+                                  rgba(102, 175, 233, 0.6) 0px 0px 8px 0px;
+                    border-color: rgb(102, 175, 233);
+                    outline: none;
+                }
+            }
+
+            display: block;
+            width: 400px;
+            height: 300px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin: -150px 0 0 -200px;
+            background: #fff;
+            border: 1px solid #ddd;
+            z-index: 2;
+            text-align: center;
+            padding: 20px 0 0 0;
+            box-shadow: #333 0 10px 100px;
+
+            img {
+                width: 80px;
+            }
+
+            input {
+                font: normal 18px Helvetica,"Helvetica Neue", Helvetica, Arial, sans-serif;
+                color: #000;
+                width: 80%;
+                padding: 10px 16px;
+                border: 1px solid #ccc;
+                transition-delay: 0s, 0s;
+                transition-duration: 0.15s, 0.15s;
+                transition-property: border-color, box-shadow;
+                transition-timing-function: ease-in-out, ease-in-out;
+
+                @include focus();
+
+                $radius: 6px;
+
+                &:first-of-type {
+                    margin-top: 10px;
+                    border-top-left-radius:  $radius;
+                    border-top-right-radius: $radius;
+                    border-bottom: none;
+                }
+
+                &:last-of-type {
+                    margin-bottom: 20px;
+                    border-bottom-left-radius:  $radius;
+                    border-bottom-right-radius: $radius;
+                }
+            }
+
+            button {
+                background-color: rgb(71, 164, 71);
+                border:           1px solid rgb(57, 132, 57);
+                border-radius:    4px;
+                font:             normal 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                padding:          6px 12px;
+                box-shadow:       rgba(0, 0, 0, 0.121569) 0px 3px 5px 0px inset;
+                color:            rgb(255, 255, 255);
+
+                @include focus();
+            }
+
+            .line {
+                width: 80%;
+                margin: 15px auto;
+                height: 1px;
+                background: #ccc;
+            }
+
+            .note {
+                width: 80%;
+                margin: 0 auto;
+                font: normal 12px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                color: rgb(153,153,153);
+            }
+        }
+    }
+
+    a {
+        color: #369;
+
+        &:hover {
+            color: #666;
+        }
     }
 
     pre {
@@ -24,12 +140,6 @@ body {
         margin: 0 auto;
         padding-bottom: 50px;
         padding-top: 30px;
-
-        // $blurSize: 10px;
-
-        // -webkit-filter: blur($blurSize);
-        // -moz-filter:    blur($blurSize);
-        // filter:         blur($blurSize);
 
         section {
             border-bottom: 1px solid #b9bdc9;
@@ -81,16 +191,31 @@ body {
         }
     }
 
-    .menu-toggler {
+    .log-out {
         position: fixed;
-        width: 40px;
-        height: 30px;
-        border-radius: 5px;
-        background:#fff;
-        border: 1px solid #ddd;
-        top: 20px;
-        left: 30px;
+        left: 42px;
+        top: 60px;
         cursor: pointer;
+
+        i {
+            color: #ddd ;
+
+            &:hover {
+                color: #333 !important;
+            }
+        }
+    }
+
+    .menu-toggler {
+        background:#fff;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        height: 30px;
+        left: 30px;
+        position: fixed;
+        top: 20px;
+        width: 40px;
 
         .line {
             width: 20px;
