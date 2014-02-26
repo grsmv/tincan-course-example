@@ -8,14 +8,16 @@
 
 function login () {
     var email    = $("#email").val(),
+        name     = $("#name").val(),
         password = $("#password").val();
 
-    if (password.length > 0 && email.length > 0) {
+    if (password.length > 0 && email.length > 0 && name.length > 0) {
         $("body").removeClass("no-access");
         localStorage.setItem("tincan-email",    email);
+        localStorage.setItem("tincan-name",     name);
         localStorage.setItem("tincan-password", password);
     } else {
-        alert ("email or password can not be empty");
+        alert ("email, name or password can not be empty");
     }
 }
 
@@ -31,10 +33,11 @@ function logout () {
 
     if (typeof(Storage) !== "undefined") {
         var email    = localStorage.getItem("tincan-email"),
+            name     = localStorage.getItem("tincan-name"),
             password = localStorage.getItem("tincan-password");
 
         // unauthorized user
-        if (email === null || password === null) {
+        if (email === null || password === null || name === null) {
             $("body").addClass("no-access");
         }
     } else {

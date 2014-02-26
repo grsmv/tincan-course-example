@@ -392,11 +392,11 @@ body.no-access .menu-toggler, body.no-access #sidr, body.no-access .log-out {
 body.no-access #login {
   display: block;
   width: 400px;
-  height: 300px;
+  height: 350px;
   position: fixed;
   top: 50%;
   left: 50%;
-  margin: -150px 0 0 -200px;
+  margin: -175px 0 0 -200px;
   background: #fff;
   border: 1px solid #ddd;
   z-index: 2;
