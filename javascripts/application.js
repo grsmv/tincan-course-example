@@ -34,7 +34,7 @@ function logout () {
 function tincanInit () {
     return new TinCan ({
         recordStores: [{
-            endpoint: "http://localhost:8000/",
+            endpoint: "http://localhost:8000/1e45dbda-67c8-43ae-5583-5a5af7ee37c7",
             username: localStorage.getItem("tincan-email"),
             password: localStorage.getItem("tincan-password")
         }]
