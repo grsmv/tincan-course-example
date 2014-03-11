@@ -93,15 +93,15 @@ $icon-fonts: null !default;
 // $Variable $Typescale
 // -------------------------------------//
 
-$tera: 117 !default; // 117 = 18 × 6.5
-$giga: 90 !default; // 90 = 18 × 5
-$mega: 72 !default; // 72 = 18 × 4
-$alpha: 60 !default; // 60 = 18 × 3.3333
-$beta: 48 !default; // 48 = 18 × 2.6667
-$gamma: 36 !default; // 36 = 18 × 2
-$delta: 24 !default; // 24 = 18 × 1.3333
-$epsilon: 21 !default; // 21 = 18 × 1.1667
-$zeta: 18 !default; // 18 = 18 × 1
+$tera: 117 !default; // 117 = 18 * 6.5
+$giga: 90 !default; // 90 = 18 * 5
+$mega: 72 !default; // 72 = 18 * 4
+$alpha: 60 !default; // 60 = 18 * 3.3333
+$beta: 48 !default; // 48 = 18 * 2.6667
+$gamma: 36 !default; // 36 = 18 * 2
+$delta: 24 !default; // 24 = 18 * 1.3333
+$epsilon: 21 !default; // 21 = 18 * 1.1667
+$zeta: 18 !default; // 18 = 18 * 1
 
 
 // $Variable $Typescale-Unit
@@ -174,10 +174,10 @@ $dropcap-bg: transparent !default;
 // $Fontface $Icon-Font-Helper
 // -------------------------------------//
 // ICON FONT HELPER
-// In order to use this hot rod you must have the following…
+// In order to use this hot rod you must have the following...
 // 1. Compass.
 // 2. Create a 'fonts' directory in the root of your project.
-// 3. Specify within your 'config.rb' file the following line…
+// 3. Specify within your 'config.rb' file the following line...
 //
 // fonts_dir = "name-of-your-fonts-directory" ( i.e. fonts_dir = "fonts" )
 //
@@ -369,12 +369,10 @@ $dropcap-bg: transparent !default;
 		color: $pull-quote-color;
 	}
 	&:before {
-		content: '“';
 		top:  0;
 		left: 0;
 	}
 	&:after {
-		content: '”';
 		bottom: 0;
 		right: 0;
 	}
@@ -418,7 +416,6 @@ $dropcap-bg: transparent !default;
 // to pass the following arguments below. Feel free to pass in custom
 // values for the variables we've provided.
 //
-// Make sure you add the class “drop-cap” to your markup in order to operate.
 @mixin dropcap($dropcap-float-position, $dropcap-font-size, $dropcap-font-family, $dropcap-txt-indent, $dropcap-margin, $dropcap-padding, $dropcap-color, $dropcap-line-height, $dropcap-bg) {
 	&:first-letter {
 		float: $dropcap-float-position;
@@ -818,7 +815,7 @@ p + .drop-cap {
 		<p><sup><a href="#fn-itemX" id="fn-returnX"></a></sup></p>
 		<footer>
 			<ol class="foot-notes">
-				<li id="fn-itemX"><a href="#fn-returnX">↩</a></li>
+				<li id="fn-itemX"><a href="#fn-returnX"></a></li>
 			</ol>
 		</footer>
 	</article>

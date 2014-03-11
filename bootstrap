@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# -----------------------------------------------------------------------------
+# helpers:
+
+# checking two strings with versions
+version_cmp () {
+    if [[ $1 == $2 ]]; then
+        return 0
+    fi
+    local IFS=.
+    local i ver1=($1) ver2=($2)
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++)); do
+        ver1[i]=0
+    done
+    for ((i=0; i<${#ver1[@]}; i++)); do
+        if [[ -z ${ver2[i]} ]]; then
+            ver2[i]=0
+        fi
+        if ((10#${ver1[i]} > 10#${ver2[i]})); then
+            return 1
+        fi
+        if ((10#${ver1[i]} < 10#${ver2[i]})); then
+            return 2
+        fi
+    done
+    return 0
+}
+
+# checking go and npm existence
+check_dependencies () {
+    which go > /dev/null 2>&1
+    export GO_EXISTENCE=$?
+
+    which npm > /dev/null 2>&1
+    export NPM_EXISTENCE=$?
+}
+
+# installing dependencies
+install () {
+    npm install --safe-dev
+
+    local grunt=./node_modules/.bin/grunt
+    local tasks=(bower:install sass)
+    for task in ${tasks[*]}; do
+        $grunt $task
+    done
+}
+
+# -----------------------------------------------------------------------------
+# execution:
+
+check_dependencies
+
+if [[ $GO_EXISTENCE == 0 || $NPM_EXISTENCE == 0 ]]
+then
+    install
+else
+    echo "Plese install golang and/or npm"
+fi
