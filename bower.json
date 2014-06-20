@@ -8,6 +8,7 @@
         "scrolldepth":   "grsmv/scrolldepth",
         "sidr":          "1.2.1",
         "tincan":        "0.20.1",
-        "typeplate":     "1.1.2"
+        "typeplate-starter-kit":     "1.1.4",
+        "selection-sharer": "0.0.15"
     }
 }

@@ -1,9 +1,8 @@
 /**
     WARNING | ACHTUNG | POZOR | УВАГА
     ---------------------------------
-    This spaghetty writen for demo purposes only. Please use MVC JavasScript
+    This spaghetty written for demo purposes only. Please use MVC JavasScript
     frameworks instead of this way. Good example - AngularJS.
-    Thank you and let the Force be with you.
 */
 
 window.tincan = tincanInit(); // Douglas Crockford, sorry
@@ -32,9 +31,11 @@ function logout () {
 }
 
 function tincanInit () {
+    var key = "5d2657ba-04e9-42ae-4fcf-29816f1f4b30";
+
     return new TinCan ({
         recordStores: [{
-            endpoint: "http://localhost:8000/1e45dbda-67c8-43ae-5583-5a5af7ee37c7",
+            endpoint: "http://localhost:8000/" + key,
             username: localStorage.getItem("tincan-email"),
             password: localStorage.getItem("tincan-password")
         }]
