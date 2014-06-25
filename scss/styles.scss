@@ -191,6 +191,89 @@ body {
         }
     }
 
+    #sharing-legend {
+        width: 200px;
+        font: normal .7em Helvetica Neue, Helvetica, Arial;
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        box-shadow: #999 0 0 10px;
+        padding: 10px 20px;
+        z-index: 100;
+        background: #fff;
+
+        h6 {
+            font-size: 1em;
+
+            small {
+                font-size: .9em;
+                font-weight: normal;
+                color: #666;
+                display: block;
+                margin-top: 3px;
+            }
+        }
+
+        table.colors {
+            font-size: .9em;
+            margin-top: -15px;
+
+            td {
+                width: 40px;
+
+                div.color-example {
+                    width: 15px;
+                    height: 15px;
+                    background: #eee;
+                    margin-bottom: 10px;
+                    
+                    &.a {
+                        background: rgba(229,226,161,1);
+                    }
+
+                    &.b {
+                        background: rgba(178,183,125,1);
+                    }
+
+                    &.c {
+                        background: rgba(115,128,78,1);
+                    }
+
+                    &.d {
+                        background: rgba(67,85,42,1);
+                    }
+
+                    &.e {
+                        background: rgba(38,55,14,1);
+                    }
+                }
+            }
+        }
+    }
+
+    span.share {
+        &.a {
+            background: rgba(229,226,161,1);
+        }
+
+        &.b {
+            background: rgba(178,183,125,1);
+        }
+
+        &.c {
+            background: rgba(115,128,78,1);
+//            color: #eee;
+        }
+
+        &.d {
+            background: rgba(67,85,42,1);
+        }
+
+        &.e {
+            background: rgba(38,55,14,1);
+        }
+    }
+
     .log-out {
         position: fixed;
         left: 42px;

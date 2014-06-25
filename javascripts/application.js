@@ -31,7 +31,7 @@ function logout () {
 }
 
 function tincanInit () {
-    var key = "5d2657ba-04e9-42ae-4fcf-29816f1f4b30";
+    var key = "1e45dbda-67c8-43ae-5583-5a5af7ee37c7";
 
     return new TinCan ({
         recordStores: [{

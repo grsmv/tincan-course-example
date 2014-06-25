@@ -45,6 +45,29 @@
         </div>
     </div>
 
+    <div id="sharing-legend">
+        <h6>
+            Content sharing
+            <small>Legend for color differentiation</small>
+        </h6>
+        <table class="colors">
+            <tr>
+                <td><div class="color-example a"></div></td>
+                <td><div class="color-example b"></div></td>
+                <td><div class="color-example c"></div></td>
+                <td><div class="color-example d"></div></td>
+                <td><div class="color-example e"></div></td>
+            </tr>
+            <tr>
+                <td>< 5</td>
+                <td>5 - 10</td>
+                <td>10 - 15</td>
+                <td>15 - 20</td>
+                <td>> 20</td>
+            </tr>
+        </table>
+    </div>
+
     <div class="content">
 
         <!-- SAMPLE CONTENT -->
@@ -54,7 +77,9 @@
         <br>
 
         <p>
-            In this chapter we set the stage for the rest of the book. We start by reviewing the notion of a function, then introduce the concept of functional programming, summarise the main features of Haskell and its history, and conclude with two small examples that give a taste of Haskell.
+            <span class="share a">
+                In this chapter we set the stage for the rest of the book. We start by reviewing the notion of a function, then introduce the concept of functional programming, <span class="share b">summarise the main features of Haskell</span> and its history, and conclude with two small examples that give a taste of Haskell.
+            </span>
         </p>
 
         <section>
@@ -63,7 +88,7 @@
                 In Haskell, a <i>function</i> is a mapping that takes one or more arguments and produces a single result, and is defined using an equation that gives a name for the function, a name for each of its arguments, and a body that specifies how the result can be calculated in terms of the arguments.
             </p>
             <p>
-                For example, a function <i>double</i> that takes a number x as its argument, and produces the result x + x , can be defined by the following equation:
+                For example, a <span class="share a">function <i>double</i> that takes a number x as its argument</span>, and produces the result x + x , can be defined by the following equation:
 
                 <pre>
                     double x = x + x
@@ -71,11 +96,15 @@
             </p>
 
             <p>
-                When a function is applied to actual arguments, the result is obtained by substituting these arguments into the body of the function in place of the argument names. This process may immediately produce a result that cannot be further simplified, such as a number. More commonly, however, the result will be an expression containing other function applications, which must then be processed in the same way to produce the final result.
+                <span class="share b">
+                    When a function is applied to actual arguments, the result is obtained by substituting these arguments into the body of the function in place of the argument names. This process may immediately produce a result that cannot be further simplified, such as a number. <span class="share c">More commonly, however, the result will be an expression containing other function applications, which must then be processed in the same way to produce the final result</span>.
+                </span>
             </p>
 
             <p>
-                For example, the result of the application <i>double</i> 3 of the function <i>double</i> to the number 3 can be determined by the following calculation, in which each step is explained by a short comment in curly parentheses:
+                <span class="share a">
+                    For example, the result of the application <i>double</i> 3 of the function <i>double</i> to the number 3 can be determined by the following calculation, in which each step is explained by a short comment in curly parentheses:
+                </span>
 
                 <pre>
                     double 3 = { applying double }

@@ -505,6 +505,70 @@ body .content .footer {
 body .content ul.index a:hover {
   text-decoration: none;
 }
+body #sharing-legend {
+  width: 200px;
+  font: normal .7em Helvetica Neue, Helvetica, Arial;
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  box-shadow: #999 0 0 10px;
+  padding: 10px 20px;
+  z-index: 100;
+  background: #fff;
+}
+body #sharing-legend h6 {
+  font-size: 1em;
+}
+body #sharing-legend h6 small {
+  font-size: .9em;
+  font-weight: normal;
+  color: #666;
+  display: block;
+  margin-top: 3px;
+}
+body #sharing-legend table.colors {
+  font-size: .9em;
+  margin-top: -15px;
+}
+body #sharing-legend table.colors td {
+  width: 40px;
+}
+body #sharing-legend table.colors td div.color-example {
+  width: 15px;
+  height: 15px;
+  background: #eee;
+  margin-bottom: 10px;
+}
+body #sharing-legend table.colors td div.color-example.a {
+  background: #e5e2a1;
+}
+body #sharing-legend table.colors td div.color-example.b {
+  background: #b2b77d;
+}
+body #sharing-legend table.colors td div.color-example.c {
+  background: #73804e;
+}
+body #sharing-legend table.colors td div.color-example.d {
+  background: #43552a;
+}
+body #sharing-legend table.colors td div.color-example.e {
+  background: #26370e;
+}
+body span.share.a {
+  background: #e5e2a1;
+}
+body span.share.b {
+  background: #b2b77d;
+}
+body span.share.c {
+  background: #73804e;
+}
+body span.share.d {
+  background: #43552a;
+}
+body span.share.e {
+  background: #26370e;
+}
 body .log-out {
   position: fixed;
   left: 42px;
