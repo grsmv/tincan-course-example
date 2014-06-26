@@ -48,6 +48,10 @@ function tincanInit () {
     // side menu init
     $(".menu-toggler").sidr();
 
+    if (/display-sharing-statistics/.test(window.location.hash)) {
+        $("body").addClass("highlighted");
+    }
+
     // user state checking
     if (typeof(Storage) !== "undefined") {
         if (localStorage.getItem("tincan-email")    === null ||
