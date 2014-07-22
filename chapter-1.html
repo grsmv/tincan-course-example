@@ -5,9 +5,9 @@
     <title>Programming in Haskell | Introduction</title>
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="lib/normalize-css/normalize.css">
-    <link rel="stylesheet" href="lib/selection-sharer/dist/selection-sharer.css">
     <link rel="stylesheet" href="css/jquery.sidr.light.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="http://localhost:8000/1e45dbda-67c8-43ae-5583-5a5af7ee37c7/plugins.css"/>
 </head>
 <body>
 
@@ -397,10 +397,19 @@
 
     <script type="text/javascript" src="lib/jquery/jquery.js"></script>
     <script type="text/javascript" src="lib/sidr/jquery.sidr.min.js"></script>
-    <script type="text/javascript" src="lib/tincan/tincan.js"></script>
+
+    <!--<script type="text/javascript" src="lib/tincan/tincan.js"></script>-->
     <script type="text/javascript" src="lib/scrolldepth/scrolldepth.js"></script>
-    <script type="text/javascript" src="lib/selection-sharer/dist/selection-sharer.js"></script>
-    <script type="text/javascript" src="lib/selection-sharer/dist/bookmarklet.js"></script>
+    <!--<script type="text/javascript" src="lib/selection-sharer/dist/selection-sharer.js"></script>-->
+    <!--<script type="text/javascript" src="lib/selection-sharer/dist/bookmarklet.js"></script>-->
+
+    <script>
+        window._tincan = window._tincan || {};
+        window._tincan.settings = window._tincan.settings || {};
+        window._tincan.settings.selector = ".content";
+    </script>
+
+    <script type="text/javascript" src="http://localhost:8000/1e45dbda-67c8-43ae-5583-5a5af7ee37c7/plugins.js"></script>
     <script type="text/javascript" src="javascripts/application.js"></script>
 
     <script type="text/javascript" src="http://use.typekit.net/iou4rmn.js"></script>

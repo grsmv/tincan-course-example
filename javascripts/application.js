@@ -18,6 +18,10 @@ function login () {
         localStorage.setItem("tincan-name",     name);
         localStorage.setItem("tincan-password", password);
 
+        _tincan.settings.auth.name = name;
+        _tincan.settings.auth.email = email;
+        _tincan.settings.auth.password = password;
+
         window.tincan = tincanInit();
     } else {
         alert ("email, name or password can not be empty");
@@ -59,6 +63,12 @@ function tincanInit () {
             localStorage.getItem("tincan-name")     === null) {
             $("body").addClass("no-access");
         } else {
+
+            // ------------ auth init ------------------------
+
+            _tincan.settings.auth.name = localStorage.getItem("tincan-name");
+            _tincan.settings.auth.password = localStorage.getItem("tincan-password");
+            _tincan.settings.auth.email = localStorage.getItem("tincan-email");
 
             // ------------ activity description -------------
 
