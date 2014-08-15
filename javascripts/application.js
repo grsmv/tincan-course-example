@@ -4,17 +4,16 @@
 */
 
 function login () {
-    var email    = $("#email").val(),
-        name     = $("#name").val();
+    var email = $("#email").val(),
+        name  = $("#name").val();
 
     if (email.length > 0 && name.length > 0) {
         $("body").removeClass("no-access");
-        localStorage.setItem("tincan-email", email);
-        localStorage.setItem("tincan-name",  name);
-
-        _tincan.settings.auth.name = name;
-        _tincan.settings.auth.email = email;
+        localStorage.setItem("tincan-email", (_tincan.settings.auth.email = email));
+        localStorage.setItem("tincan-name", (_tincan.settings.auth.name = name));
     }
+
+    window.location.reload();
 }
 
 function logout () {
