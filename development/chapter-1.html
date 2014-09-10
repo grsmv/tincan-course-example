@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Programming in Haskell | Introduction</title>
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../lib/normalize-css/normalize.css">
+    <link rel="stylesheet" href="../css/jquery.sidr.light.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="http://localhost:2000/1e45dbda-67c8-43ae-5583-5a5af7ee37c7/plugins.css"/>
+</head>
+<body>
+
+    <div class="menu-toggler" title="Table of contents">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <div class="log-out" title="Sign out">
+        <h4><i class="fa fa-sign-out"></i></h4>
+    </div>
+
+    <div id="sidr">
+        <ul>
+            <li><a href="./chapter-1.html">Introduction</a></li>
+            <li><a href="./chapter-2.html">First steps</a></li>
+            <li><a href="./chapter-3.html">Types and classes</a></li>
+            <li><a href="./chapter-4.html">Defining functions</a></li>
+            <!-- <li><a href="./chapter-5.html">List comprehensions</a></li> -->
+        </ul>
+    </div>
+
+    <div id="login">
+        <img src="./images/Haskell-Logo.svg" alt="">
+        <form id="cmon" action="">
+            <input type="text"     name="email"    id="email"    placeholder="email">
+            <input type="text"     name="name"     id="name"     placeholder="name">
+            <button>Login</button>
+        </form>
+        <div class="line"></div>
+        <div class="note">
+            Email and name will be used during sending data to a Learning Record Store. Please make sure that your user account created in <a href="http://lrs.com">LRS</a>
+        </div>
+    </div>
+
+    <div id="sharing-legend">
+        <h6>
+            Content sharing
+            <small>Legend for color differentiation</small>
+        </h6>
+        <table class="colors">
+            <tr>
+                <td><div class="color-example a"></div></td>
+                <td><div class="color-example b"></div></td>
+                <td><div class="color-example c"></div></td>
+                <td><div class="color-example d"></div></td>
+                <td><div class="color-example e"></div></td>
+            </tr>
+            <tr>
+                <td>< 5</td>
+                <td>5 - 10</td>
+                <td>10 - 15</td>
+                <td>15 - 20</td>
+                <td>> 20</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content">
+
+        <!-- SAMPLE CONTENT -->
+
+        <h1 class="beta">Introduction</h1>
+
+        <br>
+
+        <p>
+            <span class="share a">
+                In this chapter we set the stage for the rest of the book. We start by reviewing the notion of a function, then introduce the concept of functional programming, <span class="share b">summarise the main features of Haskell</span> and its history, and conclude with two small examples that give a taste of Haskell.
+            </span>
+        </p>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 1.1. Function</h2>
+            <p>
+                In Haskell, a <i>function</i> is a mapping that takes one or more arguments and produces a single result, and is defined using an equation that gives a name for the function, a name for each of its arguments, and a body that specifies how the result can be calculated in terms of the arguments.
+            </p>
+            <p>
+                For example, a <span class="share a">function <i>double</i> that takes a number x as its argument</span>, and produces the result x + x , can be defined by the following equation:
+
+                <pre>
+                    double x = x + x
+                </pre>
+            </p>
+
+            <p>
+                <span class="share b">
+                    When a function is applied to actual arguments, the result is obtained by substituting these arguments into the body of the function in place of the argument names. This process may immediately produce a result that cannot be further simplified, such as a number. <span class="share c">More commonly, however, the result will be an expression containing other function applications, which must then be processed in the same way to produce the final result</span>.
+                </span>
+            </p>
+
+            <p>
+                <span class="share a">
+                    For example, the result of the application <i>double</i> 3 of the function <i>double</i> to the number 3 can be determined by the following calculation, in which each step is explained by a short comment in curly parentheses:
+                </span>
+
+                <pre>
+                    double 3 = { applying double }
+                    3 + 3    = { applying + }
+                    6
+                </pre>
+            </p>
+
+            <p>
+                Similarly, the result of the nested application <i>double</i> (<i>double</i> 2) in which the function <i>double</i> is applied twice can be calculated as follows:
+
+                <pre>
+                    double (double 2) = { applying the inner } double
+                    double (2 + 2)    = { applying + }
+                    double 4          = { applying double }
+                    4 + 4             = { applying + }
+                    8
+                </pre>
+            </p>
+
+            <p>
+                However, this calculation requires two more steps than our original version, because the expression <i>double</i> 2 is duplicated in the first step and hence simpli- fied twice. In general, the order in which functions are applied in a calculation does not affect the value of the final result, but it may affect the number of steps required, and may affect whether the calculation process terminates. These issues are explored in more detail in chapter 12.
+            </p>
+
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 1.2. Functional programming</h2>
+
+            <p>
+                What is functional programming? Opinions differ, and it is difficult to give a precise definition. Generally speaking, however, functional programming can be viewed as a <i>style</i> of programming in which the basic method of computation is the application of functions to arguments. In turn, a functional programming language is one that supports and <i>encourages</i> the functional style.
+            </p>
+            <p>
+                To illustrate these ideas, let us consider the task of computing the sum of the integers (whole numbers) between one and some larger number <i>n</i>. In most current programming languages, this would normally be achieved using two variables that store values that can be changed over time, one such variable used to count up to n, and the other used to accumulate the total.
+            </p>
+            <p>
+                For example, if we use the assignment symbol := to change the value of a variable, and the keywords <b>repeat</b> and <b>until</b> to repeatedly execute a sequence of instructions until a condition is satisfied, then the following sequence of instructions computes the required sum:
+
+                <pre>
+                    count := 0
+                    total := 0
+                    repeat
+                        count := count + 1
+                        total := total + count
+                    until
+                        count = n
+                </pre>
+            </p>
+
+            <p>
+                That is, we first initialise both the counter and the total to zero, and then repeatedly increment the counter and add this value to the total until the counter reaches <i>n</i>, at which point the computation stops.
+            </p>
+
+            <p>
+                In the above program, the basic method of computation is changing stored values, in the sense that executing the program results in a sequence of assign- ments. For example, the case of <i>n</i> = 5 gives the following sequence, in which the final value assigned to the variable <i>total</i> is the required sum:
+
+                <pre>
+                    count := 0
+                    total := 0
+                    count := 1
+                    total := 1
+                    count := 2
+                    total := 3
+                    count := 3
+                    total := 6
+                    count := 4
+                    total := 10
+                    count := 5
+                    total := 15
+                </pre>
+            </p>
+
+            <p>
+                In general, programming languages in which the basic method of computation is changing stored values are called imperative languages, because programs in such languages are constructed from <i>imperative</i> instructions that specify precisely how the computation should proceed.
+            </p>
+            <p>
+                Now let us consider computing the sum of the numbers between one and <i>n</i> using Haskell. This would normally be achieved using two library functions, one called [ .. ] used to produce the list of numbers between one and <i>n</i>, and the other called <i>sum</i> used to produce the sum of this list:
+
+                <pre>
+                    sum [1..n]
+                </pre>
+            </p>
+
+            <p>
+                In this program, the basic method of computation is applying functions to arguments, in the sense that executing the program results in a sequence of applications. For example, the case of <i>n</i> = 5 gives the following sequence, in which the final result is the required sum:
+
+                <pre>
+                    sum [1..5]          = { applying [ .. ] }
+                    sum [1, 2, 3, 4, 5] = { applying sum }
+                    1 + 2 + 3 + 4 + 5   = { applying + }
+                    15
+                </pre>
+            </p>
+
+            <p>
+                Most imperative languages support some form of programming with functions, so the Haskell program <i>sum</i> [ 1 . . <i>n</i> ] could be translated into such languages. However, most imperative languages do not <i>encourage</i> programming in the functional style. For example, many languages discourage or prohibit functions from being stored in data structures such as lists, from constructing intermediate structures such as the list of numbers in the above example, from taking functions as arguments or producing functions as results, or from being defined in terms of themselves. In contrast, Haskell imposes no such restric- tions on how functions can be used, and provides a range of features to make programming with functions both simple and powerful.
+            </p>
+        </section>
+        <section>
+            <h2 class="gamma"><span>§</span> 1.3. Features of Haskell</h2>
+
+            <p>
+                For reference, the main features of Haskell are listed below, along with the particular chapters of this book that give further details.
+                <br><br>
+            </p>
+
+            <p>
+                <i>Concise programs</i>. Due to the high-level nature of the functional style, programs written in Haskell are often much more <i>concise</i> than in other languages, as illustrated by the example in the previous section. Moreover, the syntax of Haskell has been designed with concise programs in mind, in particular by having few keywords, and by allowing indentation to be used to indicate the structure of programs. Although it is difficult to make an objective comparison, Haskell programs are often between two and ten times shorter than programs written in other current languages. <br><br>
+            </p>
+
+            <p>
+                <i>Powerful type system</i>. Most modern programming languages include some form of <i>type system</i> to detect incompatibility errors, such as attempting to add a number and a character. Haskell has a type system that requires little type information from the programmer, but allows a large class of incompatibility errors in programs to be automatically detected prior to their execution, using a sophisticated process called type inference. The Haskell type system is also more powerful than most current languages, by allowing functions to be “polymorphic” and “overloaded”. <br><br>
+            </p>
+            <p>
+                <i>List comprehensions</i>. One of the most common ways to structure and manipulate data in computing is using lists. To this end, Haskell provides lists as a basic concept in the language, together with a simple but powerful <i>comprehension</i> notation that constructs new lists by selecting and filtering elements from one or more existing lists. Using the comprehension notation allows many common functions on lists to be defined in a clear and concise manner, without the need for explicit recursion. <br><br>
+            </p>
+            <p>
+                <i>Recursive functions</i>. Most non-trivial programs involve some form of repetition or looping. In Haskell, the basic mechanism by which looping is achieved is by using recursive functions that are defined in terms of themselves. Many computations have a simple and natural definition in terms of <i>recursive</i> functions, particularly when “pattern matching” and “guards” are used to separate different cases into different equations. <br><br>
+            </p>
+            <p>
+                <i>Higher-order functions</i>. Haskell is a <i>higher-order</i> functional language, which means that functions can freely take functions as arguments and produce functions as results. Using higher-order functions allows common programming patterns, such as composing two functions, to be defined as functions within the language itself. More generally, higher-order functions can be used to define “domain- specific languages” within Haskell, such as for list processing, parsing, and interactive programming. <br><br>
+            </p>
+            <p>
+                <i>Monadic effects</i>. Functions in Haskell are pure functions that take all their input as arguments and produce all their output as results. However, many programs require some form of <i>side effect</i> that would appear to be at odds with purity, such as reading input from the keyboard, or writing output to the screen, while the program is running. Haskell provides a uniform framework for han- dling effects without compromising the purity of functions, based upon the mathematical notion of a monad. <br><br>
+            </p>
+            <p>
+                <i>Lazy evaluation</i>. Haskell programs are executed using a technique called <i>lazy evaluation</i>, which is based upon the idea that no computation should be performed until its result is actually required. As well as avoiding unnecessary computation, lazy evaluation ensures that programs terminate whenever possible, encour- ages programming in a modular style using intermediate data structures, and even allows data structures with an infinite number of elements, such as an infinite list of numbers. <br><br>
+            </p>
+            <p>
+                <i>Reasoning about programs</i>. Because programs in Haskell are pure functions, simple <i>equational reasoning</i> can be used to execute programs, to transform programs, to prove properties of programs, and even to derive programs directly from speci- fications of their behaviour. Equational reasoning is particularly powerful when combined with the use of “induction” to reason about functions that are defined using recursion.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 1.4. Historical background</h2>
+            <p>
+                Many of the features of Haskell are not new, but were first introduced by other languages. To help place Haskell in context, some of the main historical developments related to the language are briefly summarised below:
+            </p>
+
+            <ul>
+                <li>In the 1930s, Alonzo Church developed the lambda calculus, a simple but powerful mathematical theory of functions.</li>
+
+                <li>In the 1950s, John McCarthy developed Lisp (“LISt Processor”), generally regarded as being the first functional programming language. Lisp had some influences from the lambda calculus, but still adopted variable assignments as a central feature of the language.</li>
+
+                <li>In the 1960s, Peter Landin developed ISWIM (“If you See What I Mean”), the first pure functional programming language, based strongly on the lambda calculus and having no variable assignments.</li>
+
+                <li>In the 1970s, John Backus developed FP (“Functional Programming”), a functional programming language that particularly emphasised the idea of higher-order functions and reasoning about programs.</li>
+
+                <li>Also in the 1970s, Robin Milner and others developed ML (“Meta- Language”), the first of the modern functional programming languages, which introduced the idea of polymorphic types and type inference.</li>
+
+                <li>In the 1970s and 1980s, David Turner developed a number of lazy func- tional programming languages, culminating in the commercially produced language Miranda (meaning “admirable”).</li>
+
+                <li>In 1987, an international committee of researchers initiated the develop- ment of Haskell (named after the logician Haskell Curry), a standard lazy functional programming language.</li>
+
+                <li>In2003,thecommitteepublishedtheHaskellReport,whichdefinesalong- awaited stable version of Haskell, and is the culmination of fifteen years of work on the language by its designers.</li>
+            </ul>
+
+            <p>
+                It is worthy of note that three of the above researchers &mdash; McCarthy, Backus, and Milner &mdash; have each received the ACM Turing Award, which is generally regarded as being the computing equivalent of a Nobel prize.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 1.5. A taste of Haskell</h2>
+
+            <p>
+                We conclude this chapter with two small examples that give a taste of programming in Haskell. First of all, recall the function <i>sum</i> used earlier in this chapter, which produces the sum of a list of numbers. In Haskell, this function can be defined using the following two equations:
+
+                <pre>
+                    sum []       = 0
+                    sum (x : xs) = x + sum xs
+                </pre>
+            </p>
+
+            <p>
+                The first equation states that the sum of the empty list is zero, while the second states that the sum of any non-empty list comprising a first number <i>x</i> and a remaining list of numbers <i>xs</i> is given by adding <i>x</i> and the sum of <i>xs</i>. For example, the result of sum [ 1, 2, 3 ] can be calculated as follows:
+
+                <pre>
+                    sum [1, 2, 3]          = { applying sum }
+                    1 + sum [2, 3]         = { applying sum }
+                    1 + (2 + sum [3])      = { applying sum }
+                    1 + (2 + (3 + sum [])) = { applying sum }
+                    1 + (2 + (3 + 0))      = { applying + }
+                    6
+                </pre>
+            </p>
+
+            <p>
+                Note that even though the function <i>sum</i> is defined in terms of itself and is hence recursive, it does not loop forever. In particular, each application of <i>sum</i> reduces the length of the argument list by one, until the list eventually becomes empty, at which point the recursion stops. Returning zero as the sum of the empty list is appropriate because zero is the <i>identity</i> for addition. That is, <i>0 + x = x</i> and <i>x + 0 = x</i> for any number <i>x</i>.
+            </p>
+            <p>
+                In Haskell, every function has a type that specifies the nature of its arguments and results, which is automatically inferred from the definition of the function. For example, the function sum has the following type:
+
+                <pre>
+                    Num a ⇒ [a] → a
+                </pre>
+            </p>
+
+            <p>
+                This type states that for any type a of numbers, sum is a function that maps a list of such numbers to a single such number. Haskell supports many different types of numbers, including integers such as 123, and “floating-point” numbers such as 3.14159. Hence, for example, sum could be applied to a list of integers, as in the calculation above, or to a list of floating-point numbers.
+            </p>
+            <p>
+                Types provide useful information about the nature of functions, but, more importantly, their use allows many errors in programs to be automatically detected prior to executing the programs themselves. In particular, for every function application in a program, a check is made that the type of the actual arguments is compatible with the type of the function itself. For example, attempting to apply the function sum to a list of characters would be reported as an error, because characters are not a type of numbers.
+            </p>
+            <p>
+                Now let us consider a more interesting function concerning lists, which illustrates a number of other aspects of Haskell. Suppose that we define a function called qsort by the following two equations:
+
+                <pre>
+                    qsort []        = []
+                    qsort (x : xs)  = qsort smaller  ++ [x] ++ qsort larger
+                                      where
+                                          smaller = [a | a ← xs, a ≤ x]
+                                          larger  = [b | b ← xs, b > x]
+                </pre>
+            </p>
+
+            <p>
+                In this definition, ⧺ is an operator that appends two lists; for example, [1,2,3] ⧺ [4,5] = [1,2,3,4,5]. In turn, <b>where</b> is a keyword that introduces local definitions, in this case a list <i>smaller</i> that consists of all elements a from the list <i>xs</i> that are less than or equal to <i>x</i>, together with a list <i>larger</i> that consists of all elements <i>b</i> from <i>xs</i> that are greater than x . For example, if <i>x</i> = 3 and <i>xs</i> = [5, 1, 4, 2], then <i>smaller</i> = [1, 2] and <i>larger</i> = [5, 4].
+            </p>
+            <p>
+                What does <i>qsort</i> actually do? First of all, we show that it has no effect on lists with a single element, in the sense that <i>qsort</i> [<i>x</i>] = [<i>x</i>] for any x:
+
+                <pre>
+                    qsort [x]                   = { applying qsort }
+                    qsort [] ++ [x] ++ qsort [] = { applying qsort }
+                    [] ++ [x] ++ []             = { applying ++ }
+                    [x]
+                </pre>
+            </p>
+
+            <p>
+                In turn, we now work through the application of <i>qsort</i> to an example list, using the above property to simplify the calculation:
+
+                <pre>
+                    qsort [3, 5, 1, 4, 2]
+                        = { applying qsort }
+                    qsort [1, 2] ++ [3] ++ qsort [5, 4]
+                        = { applying qsort }
+                    (qsort [] ++ [1] ++ qsort [2]) ++ [3] ++
+                    (qsort [4] ++ [5] ++ qsort [])
+                        = { applying qsort, above property }
+                    ([] ++ [1] ++ [2]) ++ [3] ++ ([4] ++ [5] ++ [])
+                        = { applying ++ }
+                    [1, 2] ++ [3] ++ [4, 5]
+                        = { applying ++ }
+                    [1, 2, 3, 4, 5]
+                </pre>
+            </p>
+
+            <p>
+                In summary, <i>qsort</i> has sorted the example list into numerical order. More generally, this function produces a sorted version of any list of numbers. The first equation for <i>qsort</i> states that the empty list is already sorted, while the second states that any non-empty list can be sorted by inserting the first number between the two lists that result from sorting the remaining numbers that are <i>smaller</i> and <i>larger</i> than this number. This method of sorting is called <i>quicksort</i>, and is one of the best such methods known.
+            </p>
+            <p>
+                The above implementation of quicksort is an excellent example of the power of Haskell, being both clear and concise. Moreover, the function <i>qsort</i> is also more general than might be expected, being applicable not just with numbers, but with any type of ordered values. More precisely, the type
+
+                <pre>
+                    qsort :: Ord a ⇒ [a] → [a]
+                </pre>
+            </p>
+
+            <p>
+                states that, for any type <i>a</i> of ordered values, <i>qsort</i> is a function that maps between lists of such values. Haskell supports many different types of ordered values, including numbers, single characters such as <code>a</code>, and strings of characters such as <code>abcde</code>. Hence, for example, the function qsort could also be used to sort a list of characters, or a list of strings.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="gamma"><span>§</span> 1.6. Chapter remarks</h2>
+
+            <p>
+                The Haskell Report is freely available on the web from the Haskell home page, <i>www.haskell.org</i>, and has also been published as a book <a href="#fn-item1" id="fn-return1">[1]</a>. A more detailed historical account of the development of functional programming languages is given in Hudak’s survey article <a href="#fn-item2" id="fn-return2">[2]</a>.
+            </p>
+
+            <footer>
+                <ol class="foot-notes">
+                    <li id="fn-item1">
+                        Simon Peyton Jones. <i>Haskell 98 Language and Libraries: The Revised Report</i>. Cambridge University Press, 2003. Also available on the web from <code>www.haskell.org/definition</code>.
+                        <a href="#fn-return1">↩</a>
+                    </li>
+                    <li id="fn-item2">
+                        Paul Hudak. Conception, Evolution and Application of Functional Programming Languages. <i>Communications of the ACM<i>, <b>21</b>(3): 359–411, 1989.
+                        <a href="#fn-return2">↩</a>
+                    </li>
+                </ol>
+            </footer>
+        </section>
+
+        <!-- SAMPLE CONTENT -->
+
+    </div><!-- .content -->
+
+    <script type="text/javascript" src="../lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../lib/sidr/jquery.sidr.min.js"></script>
+
+    <script>
+        window._tincan = window._tincan || {};
+        window._tincan.settings = window._tincan.settings || {};
+        window._tincan.settings.selector = ".content";
+    </script>
+
+    <script type="text/javascript" src="http://localhost:2000/1e45dbda-67c8-43ae-5583-5a5af7ee37c7/plugins.js"></script>
+    <script type="text/javascript" src="../javascripts/application.js"></script>
+
+    <script type="text/javascript" src="http://use.typekit.net/iou4rmn.js"></script>
+    <script type="text/javascript">
+        try {
+            Typekit.load();
+        } catch(e) {
+            console.log (e);
+        }
+    </script>
+</body>
+</html>
